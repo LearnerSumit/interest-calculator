@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interest Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form div {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Loan Calculator</h1>
+        <form id="loanForm">
+            <div>
+                <label for="percentage">Interest Rate Percentage:</label>
+                <input type="number" id="percentage" name="percentage" required>
+            </div>
+            <div>
+                <label for="mode">Mode:</label>
+                <select id="mode" name="mode" required>
+                    <option value="100">100</option>
+                    <option value="1000">1000</option>
+                </select>
+            </div>
+            <div>
+                <label for="startDate">Start Date (YYYY-MM-DD):</label>
+                <input type="date" id="startDate" name="startDate" required>
+            </div>
+            <div>
+                <label for="amount">Loan Amount:</label>
+                <input type="number" id="amount" name="amount" required>
+            </div>
+            <button type="submit">Calculate</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.getElementById('loanForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const percentage = parseFloat(document.getElementById('percentage').value);
+    const mode = parseInt(document.getElementById('mode').value);
+    const startDate = new Date(document.getElementById('startDate').value);
+    const amount = parseFloat(document.getElementById('amount').value);
+
+    const currentDate = new Date();
+    const numberOfMonths = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
+
+    const interestRate = (mode === 1000) ? (percentage / 1000) : (percentage / 100);
+    console.log(interestRate);
+    const totalInterest = amount * interestRate * numberOfMonths;
+
+    document.getElementById('result').innerText = `Total interest: ₹${totalInterest.toFixed(2)} over ${numberOfMonths} months`;
+});
+    
+    </script>
+</body>
+
+</html>
